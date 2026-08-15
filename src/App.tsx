@@ -44,6 +44,7 @@ export default function App() {
         onOpenConfig={() => setIsConfigOpen(true)}
         onCopyCode={handleCopyCode}
         copied={copied}
+        config={config}
       />
 
       {/* Main Content Area */}
