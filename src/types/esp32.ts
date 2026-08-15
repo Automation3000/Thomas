@@ -1,9 +1,11 @@
+export type ConnectionMode = 'disconnected' | 'usb_serial' | 'wifi_network' | 'simulated_demo';
+
 export interface SensorTelemetry {
   flowPercent: number;
   temperatureC: number;
   temperatureF: number;
   connected: boolean;
-  status: 'NORMAL' | 'CALIBRATING' | 'WARNING' | 'ERROR' | 'OFFLINE';
+  status: 'NORMAL' | 'CALIBRATING' | 'WARNING' | 'ERROR' | 'OFFLINE' | 'DISCONNECTED';
   lastUpdatedMs: number;
   rawHexResponse: string;
   rawAsciiResponse: string;
@@ -12,6 +14,35 @@ export interface SensorTelemetry {
   rssi: number;
   freeHeap: number;
   uptimeSeconds: number;
+  source?: ConnectionMode;
+}
+
+export interface ESP32ChipInfo {
+  chipName: string;
+  macAddr: string;
+  features?: string[];
+  flashSize?: string;
+  crystalFreq?: string;
+}
+
+export interface FlashFileItem {
+  address: number;
+  fileName: string;
+  data: Uint8Array;
+  size: number;
+  selected: boolean;
+}
+
+export interface FlashingProgress {
+  status: 'idle' | 'connecting' | 'connected' | 'erasing' | 'flashing' | 'verifying' | 'completed' | 'error';
+  currentFileIndex: number;
+  totalFiles: number;
+  fileProgress: number;
+  totalProgress: number;
+  message: string;
+  bytesWritten: number;
+  totalBytes: number;
+  speedKbps?: number;
 }
 
 export interface ESP32Config {
@@ -26,6 +57,7 @@ export interface ESP32Config {
   enableApFallback: boolean;
   apSsid: string;
   tempUnit: 'C' | 'F';
+  espIpAddress?: string;
 }
 
 export interface ProtocolCommand {
@@ -55,3 +87,4 @@ export interface CalibrationStep {
   status: 'pending' | 'active' | 'success' | 'failed';
   message: string;
 }
+

@@ -1,6 +1,6 @@
 {
   "name": "ESP32 Flowphant DTT31 IoT Controller",
-  "description": "Embedded ESP32 AsyncWebServer & UART controller for Endress+Hauser Flowphant T DTT31 flow sensors with interactive web dashboard, UART protocol analyzer, calibration controls, and complete Arduino C++ code.",
+  "description": "Embedded ESP32 AsyncWebServer & UART controller for Endress+Hauser Flowphant T DTT31 flow sensors with in-browser Web Serial ESP32 flasher, real-time hardware telemetry monitor, UART protocol analyzer, and complete Arduino C++ code.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

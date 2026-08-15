@@ -13,11 +13,12 @@ import {
 interface CodeViewerProps {
   config: ESP32Config;
   onOpenConfig: () => void;
+  onNavigateToFlasher?: () => void;
 }
 
 type ProjectFileType = 'main_cpp' | 'platformio' | 'index_html' | 'readme' | 'ino' | 'header';
 
-export const CodeViewer: React.FC<CodeViewerProps> = ({ config, onOpenConfig }) => {
+export const CodeViewer: React.FC<CodeViewerProps> = ({ config, onOpenConfig, onNavigateToFlasher }) => {
   const [selectedFile, setSelectedFile] = useState<ProjectFileType>('main_cpp');
   const [copied, setCopied] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -96,6 +97,16 @@ export const CodeViewer: React.FC<CodeViewerProps> = ({ config, onOpenConfig }) 
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5">
+            {onNavigateToFlasher && (
+              <button
+                onClick={onNavigateToFlasher}
+                className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-cyan-950/50 border border-cyan-400 transition-all cursor-pointer transform hover:-translate-y-0.5"
+              >
+                <Cpu className="w-4 h-4" />
+                <span>Flash to ESP32</span>
+              </button>
+            )}
+
             <button
               onClick={onOpenConfig}
               className="px-3 py-2 rounded-lg bg-[#1e293b] hover:bg-[#25334a] text-slate-200 border border-slate-600 text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-sm"
@@ -114,7 +125,7 @@ export const CodeViewer: React.FC<CodeViewerProps> = ({ config, onOpenConfig }) 
 
             <button
               onClick={handleDownload}
-              className="px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-cyan-900/40 border border-cyan-500 transition-all cursor-pointer"
+              className="px-4 py-2 rounded-lg bg-cyan-700/60 hover:bg-cyan-600 text-slate-100 font-bold text-xs flex items-center gap-2 border border-slate-600 transition-all cursor-pointer"
             >
               <Download className="w-4 h-4" />
               Download {currentFileName}
